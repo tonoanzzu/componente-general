@@ -1,0 +1,94 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="componente-general">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <template is="dom-if" if="{{_isChangesLog()}}">
+      
+      <h2>[[title]]</h2>
+      <p>[[detailText]]</p>
+
+    <h2> [[incidences]]</h2>
+    </template>
+
+    <template is="dom-if" if="{{_isCleaningLog()}}">
+      
+      <h2> [[title]]!</h2>
+      <p>[[detailText]]</p>
+
+    <h2> [[incidences]]</h2>
+
+    </template>
+
+  </template>
+
+  <script>
+    /**
+     * `componente-general`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ComponenteGeneral extends Polymer.Element {
+      static get is() { return 'componente-general'; }
+      static get properties() {
+        return {
+          typeValueComponent:{
+            type:String,
+            //value:'cleaningLog'
+            value:'changesLog'
+          },
+          title:{
+            type: String,
+            value: ''
+          },
+          detailText:{
+            type: String,
+            value: ''
+          },
+          incidences:{
+            type: Number,
+            value: 0
+          },
+          dataToOutPut:{
+            type:Object,
+            value:()=>{}
+          }
+        };
+
+      }
+
+      _isChangesLog(){
+        if(this.typeValueComponent === 'changesLog'){
+          this.title = 'Cambio de valor';
+          this.detailText = 'cambio de A a B';
+          return true;
+        }else{
+          return false;
+        }
+
+      }
+
+      _isCleaningLog(){
+        if(this.typeValueComponent === 'cleaningLog'){
+          this.title = 'Nuevo Elemento encontrado';
+          this.detailText = 'Se encontro una nueva ralacion en ...';
+          return true;
+        }else{
+          return false;
+        }
+
+      }
+
+    }
+
+    window.customElements.define(ComponenteGeneral.is, ComponenteGeneral);
+  </script>
+</dom-module>
